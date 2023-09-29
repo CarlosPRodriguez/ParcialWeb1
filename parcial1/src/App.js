@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import './App.css';
+import Loging from './components/Loging';
+import Cafes from './components/Cafes';
+import CafeDetail from './components/CafeDetail';
+import { useState } from 'react';
 
 function App() {
+  const [datos, setDatos] = useState();
+  const [usuario, setUsuario] = useState("{}");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App' style={{backgroundColor:'white', width:'100%', height:'100%', minHeight:'100vh', margin:'auto'}}>
+      <BrowserRouter>
+        <Routes> 
+    
+          <Route path="/" element={<Loging usuario={usuario} setUsuario={setUsuario} />} />
+             
+          <Route path="/cafes" element={<Cafes/>} />
+          <Route path="/cafes/:cafeId" element={<CafeDetail datos={datos} setDatos={setDatos} usuario={usuario} setUsuario={setUsuario} />} /> 
+          <Route path="*" element={<Navigate to="/" />} /> 
+        </Routes>
+      </BrowserRouter>
+      
     </div>
   );
 }
